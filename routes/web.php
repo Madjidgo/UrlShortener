@@ -17,58 +17,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UrlsController@create');
 
-Route::post('/', function(Request $request) { 
+Route::post('/', 'UrlsController@store'); 
 
-
-// validation url
-
-
-$urlVerif = request('url');	
-$request->flash();
-
-Validator::make(compact('urlVerif'),[
-	'urlVerif' => 'required|url'])->validate();
-	
-//Verifier si l'url à déja été crée
-$url = Url::whereUrl(request('url'))->first();
-if($url){
-	return view('result')->withShort( $url->short);
-}
-
-// create
-function get_unique_short(){
-	$short = str_random(7);
-	if(Url::whereShort($short)->count() != 0){
-		return get_unique_short();
-}else{
-	return $short;
-}
-}
-
-$row = Url::create([
-	'url'=>request('url'),
-	'short' => get_unique_short()
-	]);
-
-if($row){
-	return view('result')->withShort( $row->short);
-}
-
-
-});
+Route::get('/{short}', 'UrlsController@show');
 
 // redirect
-Route::get('/{short}', function ($short) {
-	$url = Url::whereShort($short)->first();
-    
-    if(! $url){
-    return redirect('/');
-}else{
-	 return redirect ($url->url);
-}
-});
 
+	
