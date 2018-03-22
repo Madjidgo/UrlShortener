@@ -16,6 +16,7 @@
 
 
 </a>
+<a href=""><button type="button" class="btn btn-outline-dark">Retry</button></a>
 
 
     </div>
