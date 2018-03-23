@@ -10,7 +10,7 @@
 <form action="/" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-      <label for="email">Url-Shorten</label>
+      <label for="email">Url-Short</label>
       <input type="text" class="form-control" id="text" placeholder="Enter your Url" name="url" value="{{old('url')}}">
       {!! $errors->first('urlVerif','<p>:message</p>') !!}
     </div>

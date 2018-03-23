@@ -20,7 +20,9 @@ class UrlsController extends Controller
 
 
 		$urlVerif = request('url');	
-		$request->flash();
+	
+
+
 
 		Validator::make(compact('urlVerif'),[
 			'urlVerif' => 'required|url'])->validate();
@@ -55,13 +57,10 @@ class UrlsController extends Controller
     }
 
     public function show($short){
-    	$url = Url::whereShort($short)->first();
-    
-    if(! $url){
-    return redirect('/');
-}else{
+    	$url = Url::whereShort($short)->firstOrFail();
+
 	 return redirect ($url->url);
-}
+
  
 
     }
